@@ -10,33 +10,135 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as CursosRouteImport } from './routes/cursos'
+import { Route as EntrarRouteImport } from './routes/entrar'
+import { Route as RegistroRouteImport } from './routes/registro'
+import { Route as AuthenticatedPerfilRouteImport } from './routes/_authenticated/perfil'
+import { Route as ComunidadeIndexRouteImport } from './routes/comunidade.index'
+import { Route as ComunidadeIdRouteImport } from './routes/comunidade.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContatoRoute = ContatoRouteImport.update({
+  id: '/contato',
+  path: '/contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CursosRoute = CursosRouteImport.update({
+  id: '/cursos',
+  path: '/cursos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntrarRoute = EntrarRouteImport.update({
+  id: '/entrar',
+  path: '/entrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegistroRoute = RegistroRouteImport.update({
+  id: '/registro',
+  path: '/registro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedPerfilRoute = AuthenticatedPerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const ComunidadeIndexRoute = ComunidadeIndexRouteImport.update({
+  id: '/comunidade/',
+  path: '/comunidade/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComunidadeIdRoute = ComunidadeIdRouteImport.update({
+  id: '/comunidade/$id',
+  path: '/comunidade/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contato': typeof ContatoRoute
+  '/cursos': typeof CursosRoute
+  '/entrar': typeof EntrarRoute
+  '/registro': typeof RegistroRoute
+  '/perfil': typeof AuthenticatedPerfilRoute
+  '/comunidade/$id': typeof ComunidadeIdRoute
+  '/comunidade/': typeof ComunidadeIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contato': typeof ContatoRoute
+  '/cursos': typeof CursosRoute
+  '/entrar': typeof EntrarRoute
+  '/registro': typeof RegistroRoute
+  '/perfil': typeof AuthenticatedPerfilRoute
+  '/comunidade/$id': typeof ComunidadeIdRoute
+  '/comunidade': typeof ComunidadeIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/contato': typeof ContatoRoute
+  '/cursos': typeof CursosRoute
+  '/entrar': typeof EntrarRoute
+  '/registro': typeof RegistroRoute
+  '/_authenticated/perfil': typeof AuthenticatedPerfilRoute
+  '/comunidade/$id': typeof ComunidadeIdRoute
+  '/comunidade/': typeof ComunidadeIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/contato'
+    | '/cursos'
+    | '/entrar'
+    | '/registro'
+    | '/perfil'
+    | '/comunidade/$id'
+    | '/comunidade/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/contato'
+    | '/cursos'
+    | '/entrar'
+    | '/registro'
+    | '/perfil'
+    | '/comunidade/$id'
+    | '/comunidade'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/contato'
+    | '/cursos'
+    | '/entrar'
+    | '/registro'
+    | '/_authenticated/perfil'
+    | '/comunidade/$id'
+    | '/comunidade/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  ContatoRoute: typeof ContatoRoute
+  CursosRoute: typeof CursosRoute
+  EntrarRoute: typeof EntrarRoute
+  RegistroRoute: typeof RegistroRoute
+  ComunidadeIdRoute: typeof ComunidadeIdRoute
+  ComunidadeIndexRoute: typeof ComunidadeIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +150,85 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contato': {
+      id: '/contato'
+      path: '/contato'
+      fullPath: '/contato'
+      preLoaderRoute: typeof ContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cursos': {
+      id: '/cursos'
+      path: '/cursos'
+      fullPath: '/cursos'
+      preLoaderRoute: typeof CursosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entrar': {
+      id: '/entrar'
+      path: '/entrar'
+      fullPath: '/entrar'
+      preLoaderRoute: typeof EntrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/registro': {
+      id: '/registro'
+      path: '/registro'
+      fullPath: '/registro'
+      preLoaderRoute: typeof RegistroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/perfil': {
+      id: '/_authenticated/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof AuthenticatedPerfilRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/comunidade/': {
+      id: '/comunidade/'
+      path: '/comunidade'
+      fullPath: '/comunidade/'
+      preLoaderRoute: typeof ComunidadeIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comunidade/$id': {
+      id: '/comunidade/$id'
+      path: '/comunidade/$id'
+      fullPath: '/comunidade/$id'
+      preLoaderRoute: typeof ComunidadeIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedPerfilRoute: typeof AuthenticatedPerfilRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedPerfilRoute: AuthenticatedPerfilRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  ContatoRoute: ContatoRoute,
+  CursosRoute: CursosRoute,
+  EntrarRoute: EntrarRoute,
+  RegistroRoute: RegistroRoute,
+  ComunidadeIdRoute: ComunidadeIdRoute,
+  ComunidadeIndexRoute: ComunidadeIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
