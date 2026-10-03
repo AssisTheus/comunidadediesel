@@ -14,7 +14,98 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      duvidas: {
+        Row: {
+          criado_em: string
+          id: string
+          texto: string
+          titulo: string
+          usuario_id: string
+        }
+        Insert: {
+          criado_em?: string
+          id?: string
+          texto: string
+          titulo: string
+          usuario_id?: string
+        }
+        Update: {
+          criado_em?: string
+          id?: string
+          texto?: string
+          titulo?: string
+          usuario_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "duvidas_usuario_id_fkey"
+            columns: ["usuario_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          criado_em: string
+          foto_url: string | null
+          id: string
+          nome: string
+        }
+        Insert: {
+          criado_em?: string
+          foto_url?: string | null
+          id: string
+          nome: string
+        }
+        Update: {
+          criado_em?: string
+          foto_url?: string | null
+          id?: string
+          nome?: string
+        }
+        Relationships: []
+      }
+      respostas: {
+        Row: {
+          criado_em: string
+          duvida_id: string
+          id: string
+          texto: string
+          usuario_id: string
+        }
+        Insert: {
+          criado_em?: string
+          duvida_id: string
+          id?: string
+          texto: string
+          usuario_id?: string
+        }
+        Update: {
+          criado_em?: string
+          duvida_id?: string
+          id?: string
+          texto?: string
+          usuario_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "respostas_duvida_id_fkey"
+            columns: ["duvida_id"]
+            isOneToOne: false
+            referencedRelation: "duvidas"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "respostas_usuario_id_fkey"
+            columns: ["usuario_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
