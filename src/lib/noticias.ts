@@ -1,0 +1,8 @@
+export const NOTICIAS = [
+  { titulo: "Bico injetor sujo: os sinais que o carro dá antes de falhar", resumo: "Fumaça preta, marcha lenta irregular, perda de força e consumo maior são os avisos mais comuns. Veja o que cada sintoma indica e quando vale levar os bicos para teste em bancada.", categoria: "Bicos injetores", leitura: "4 min de leitura" },
+  { titulo: "Bomba injetora rotativa ou em linha: qual a diferença?", resumo: "As duas dosam e enviam o diesel para os cilindros, mas funcionam de jeitos diferentes. Entenda onde cada uma aparece e quais defeitos são mais comuns.", categoria: "Bombas injetoras", leitura: "5 min de leitura" },
+  { titulo: "Common rail: por que o filtro de combustível não pode esperar", resumo: "O sistema trabalha com pressão altíssima e tolerâncias minúsculas. Água e sujeira no diesel desgastam bomba e bicos rapidamente.", categoria: "Common rail", leitura: "3 min de leitura" },
+  { titulo: "Teste em bancada: o que é avaliado em uma bomba ou bico", resumo: "Vazão, pressão, avanço e pulverização são conferidos com equipamento próprio. Saiba por que o diagnóstico sem bancada costuma ser só um palpite.", categoria: "Manutenção", leitura: "4 min de leitura" },
+  { titulo: "Diesel de má qualidade: como evitar problemas no sistema de injeção", resumo: "Abastecer em postos de confiança, drenar a água do filtro e não deixar o tanque quase vazio ajudam a proteger bombas e bicos.", categoria: "Dicas", leitura: "3 min de leitura" },
+  { titulo: "Turbina e injeção: como um defeito afeta o outro", resumo: "Bicos que pulverizam mal geram fuligem e sobrecarregam a turbina. Por isso o diagnóstico precisa olhar o conjunto, não só uma peça.", categoria: "Diagnóstico", leitura: "5 min de leitura" },
+];

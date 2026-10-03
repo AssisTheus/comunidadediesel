@@ -1,24 +1,48 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import hero from "@/assets/hero.jpg";
+import { NOTICIAS } from "@/lib/noticias";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Comunidade Diesel — Bombas e bicos injetores" },
+      { name: "description", content: "Notícias, dicas e uma comunidade para tirar dúvidas sobre bombas injetoras e bicos injetores diesel." },
+      { property: "og:title", content: "Comunidade Diesel — Bombas e bicos injetores" },
+      { property: "og:description", content: "Notícias, dicas e uma comunidade para tirar dúvidas sobre injeção diesel." },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <>
+      <section className="relative overflow-hidden">
+        <img src={hero} alt="Bomba injetora e bicos injetores em bancada" width={1600} height={912} className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-hero-overlay" />
+        <div className="relative mx-auto max-w-6xl px-4 py-28">
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary">Injeção diesel sem mistério</p>
+          <h1 className="mt-3 max-w-3xl text-6xl leading-none md:text-8xl">Bombas injetoras, bicos e quem entende deles.</h1>
+          <p className="mt-6 max-w-xl text-lg text-muted-foreground">Leia as novidades, tire dúvidas com outros mecânicos e aprenda com quem vive a bancada todo dia.</p>
+          <div className="mt-8 flex gap-3">
+            <Link to="/comunidade" className="rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground">Ver dúvidas</Link>
+            <Link to="/cursos" className="rounded-md border px-6 py-3 font-semibold">Cursos</Link>
+          </div>
+        </div>
+      </section>
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <h2 className="text-4xl">Notícias</h2>
+        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {NOTICIAS.map((n) => (
+            <article key={n.titulo} className="flex flex-col rounded-lg border bg-card p-6 transition-colors hover:border-primary">
+              <span className="text-xs font-semibold uppercase tracking-widest text-primary">{n.categoria}</span>
+              <h3 className="mt-3 text-2xl leading-tight">{n.titulo}</h3>
+              <p className="mt-3 flex-1 text-sm text-muted-foreground">{n.resumo}</p>
+              <span className="mt-4 text-xs text-muted-foreground">{n.leitura}</span>
+            </article>
+          ))}
+        </div>
+      </section>
+    </>
   );
 }
