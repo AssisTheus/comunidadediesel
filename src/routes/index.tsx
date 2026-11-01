@@ -34,12 +34,12 @@ function Index() {
         <h2 className="text-4xl">Notícias</h2>
         <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {NOTICIAS.map((n) => (
-            <article key={n.titulo} className="flex flex-col rounded-lg border bg-card p-6 transition-colors hover:border-primary">
+            <Link key={n.slug} to="/noticias/$slug" params={{ slug: n.slug }} className="flex flex-col rounded-lg border bg-card p-6 transition-colors hover:border-primary">
               <span className="text-xs font-semibold uppercase tracking-widest text-primary">{n.categoria}</span>
               <h3 className="mt-3 text-2xl leading-tight">{n.titulo}</h3>
               <p className="mt-3 flex-1 text-sm text-muted-foreground">{n.resumo}</p>
-              <span className="mt-4 text-xs text-muted-foreground">{n.leitura}</span>
-            </article>
+              <span className="mt-4 text-xs text-muted-foreground">{n.leitura} · Ler notícia →</span>
+            </Link>
           ))}
         </div>
       </section>
