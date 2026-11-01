@@ -26,7 +26,10 @@ function Cursos() {
       <div className="mt-10 grid gap-6 md:grid-cols-3">
         {CURSOS.map((c) => (
           <div key={c.nome} className="rounded-lg border bg-card p-6">
-            <span className="text-xs font-semibold uppercase tracking-widest text-primary">{c.nivel}</span>
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-xs font-semibold uppercase tracking-widest text-primary">{c.nivel}</span>
+              <span className="rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">Em breve</span>
+            </div>
             <h2 className="mt-2 text-3xl leading-tight">{c.nome}</h2>
             <p className="mt-2 text-sm text-muted-foreground">{c.texto}</p>
           </div>
