@@ -41,9 +41,9 @@ function Comunidade() {
   async function publicar(e: React.FormEvent) {
     e.preventDefault();
     if (titulo.trim().length < 5 || texto.trim().length < 10)
-      return toast.error("Escreva um título (mín. 5 letras) e a descrição da dúvida (mín. 10 letras).");
+      return void toast.error("Escreva um título (mín. 5 letras) e a descrição da dúvida (mín. 10 letras).");
     const { error } = await supabase.from("duvidas").insert({ titulo: titulo.trim(), texto: texto.trim() });
-    if (error) return toast.error("Não foi possível publicar.");
+    if (error) return void toast.error("Não foi possível publicar.");
     setTitulo(""); setTexto("");
     toast.success("Dúvida publicada.");
     qc.invalidateQueries({ queryKey: ["duvidas"] });

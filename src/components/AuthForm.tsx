@@ -23,12 +23,12 @@ export function AuthForm({ modo }: { modo: "entrar" | "registro" }) {
       if (senha.length < 6) { toast.error("A senha precisa ter pelo menos 6 caracteres."); setCarregando(false); return; }
       const { error } = await supabase.auth.signUp({ email, password: senha, options: { emailRedirectTo: window.location.origin, data: { nome: nome.trim() } } });
       setCarregando(false);
-      if (error) return toast.error(error.message.includes("registered") ? "Este email já está cadastrado." : error.message);
+      if (error) return void toast.error(error.message.includes("registered") ? "Este email já está cadastrado." : error.message);
       setConfirmar(true);
     } else {
       const { error } = await supabase.auth.signInWithPassword({ email, password: senha });
       setCarregando(false);
-      if (error) return toast.error("Email ou senha incorretos.");
+      if (error) return void toast.error("Email ou senha incorretos.");
       toast.success("Bem-vindo de volta!");
       navigate({ to: "/comunidade" });
     }

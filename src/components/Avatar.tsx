@@ -1,4 +1,4 @@
-export function UserAvatar({ nome, foto, size = 36 }: { nome?: string | null; foto?: string | null; size?: number }) {
+export function UserAvatar({ nome, foto, size = 36 }: { nome?: string | null | undefined; foto?: string | null | undefined; size?: number }) {
   const inicial = (nome ?? "?").trim().charAt(0).toUpperCase();
   return foto ? (
     <img src={foto} alt={nome ?? ""} width={size} height={size} className="rounded-full object-cover border border-border" style={{ width: size, height: size }} />
