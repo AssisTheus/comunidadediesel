@@ -40,9 +40,9 @@ function Duvida() {
 
   async function responder(e: React.FormEvent) {
     e.preventDefault();
-    if (!texto.trim()) return toast.error("Escreva sua resposta antes de enviar.");
+    if (!texto.trim()) return void toast.error("Escreva sua resposta antes de enviar.");
     const { error } = await supabase.from("respostas").insert({ duvida_id: id, texto: texto.trim() });
-    if (error) return toast.error("Não foi possível enviar.");
+    if (error) return void toast.error("Não foi possível enviar.");
     setTexto("");
     toast.success("Resposta publicada.");
     qc.invalidateQueries({ queryKey: ["duvida", id] });

@@ -53,7 +53,7 @@ function Perfil() {
 
   async function salvar(campos: { nome?: string; foto_url?: string }, msg: string) {
     const { error } = await supabase.from("profiles").update(campos).eq("id", user!.id);
-    if (error) return toast.error("Não foi possível salvar.");
+    if (error) return void toast.error("Não foi possível salvar.");
     toast.success(msg);
     qc.invalidateQueries();
   }
@@ -61,9 +61,9 @@ function Perfil() {
   async function trocarFoto(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0];
     if (!f) return;
-    if (!/^image\/(png|jpe?g|gif|webp)$/.test(f.type)) return toast.error("Use uma imagem nos formatos PNG, JPG, GIF ou WEBP.");
-    if (f.size > 2 * 1024 * 1024) return toast.error("A imagem é muito grande. O limite é 2 MB.");
-    salvar({ foto_url: await redimensionar(f) }, "Foto atualizada.");
+    if (!/^image\/(png|jpe?g|gif|webp)$/.test(f.type)) return void toast.error("Use uma imagem nos formatos PNG, JPG, GIF ou WEBP.");
+    if (f.size > 2 * 1024 * 1024) return void toast.error("A imagem é muito grande. O limite é 2 MB.");
+    void salvar({ foto_url: await redimensionar(f) }, "Foto atualizada.");
   }
 
   return (
@@ -76,7 +76,7 @@ function Perfil() {
         </div>
       </div>
       <div className="mt-8 grid gap-6 md:grid-cols-2">
-        <form className="space-y-3 rounded-lg border bg-card p-6" onSubmit={(e) => { e.preventDefault(); if (nome.trim().length < 2) return toast.error("Digite um nome com pelo menos 2 letras."); salvar({ nome: nome.trim() }, "Nome atualizado."); }}>
+        <form className="space-y-3 rounded-lg border bg-card p-6" onSubmit={(e) => { e.preventDefault(); if (nome.trim().length < 2) return void toast.error("Digite um nome com pelo menos 2 letras."); void salvar({ nome: nome.trim() }, "Nome atualizado."); }}>
           <h2 className="text-2xl">Trocar nome</h2>
           <Input value={nome} onChange={(e) => setNome(e.target.value)} />
           <Button type="submit">Salvar</Button>
