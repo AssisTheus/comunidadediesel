@@ -18,6 +18,7 @@ import { Route as RegistroRouteImport } from './routes/registro'
 import { Route as AuthenticatedPerfilRouteImport } from './routes/_authenticated/perfil'
 import { Route as ComunidadeIndexRouteImport } from './routes/comunidade.index'
 import { Route as ComunidadeIdRouteImport } from './routes/comunidade.$id'
+import { Route as NoticiasSlugRouteImport } from './routes/noticias.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -63,6 +64,11 @@ const ComunidadeIdRoute = ComunidadeIdRouteImport.update({
   path: '/comunidade/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NoticiasSlugRoute = NoticiasSlugRouteImport.update({
+  id: '/noticias/$slug',
+  path: '/noticias/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -72,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/registro': typeof RegistroRoute
   '/perfil': typeof AuthenticatedPerfilRoute
   '/comunidade/$id': typeof ComunidadeIdRoute
+  '/noticias/$slug': typeof NoticiasSlugRoute
   '/comunidade/': typeof ComunidadeIndexRoute
 }
 export interface FileRoutesByTo {
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/registro': typeof RegistroRoute
   '/perfil': typeof AuthenticatedPerfilRoute
   '/comunidade/$id': typeof ComunidadeIdRoute
+  '/noticias/$slug': typeof NoticiasSlugRoute
   '/comunidade': typeof ComunidadeIndexRoute
 }
 export interface FileRoutesById {
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/registro': typeof RegistroRoute
   '/_authenticated/perfil': typeof AuthenticatedPerfilRoute
   '/comunidade/$id': typeof ComunidadeIdRoute
+  '/noticias/$slug': typeof NoticiasSlugRoute
   '/comunidade/': typeof ComunidadeIndexRoute
 }
 export interface FileRouteTypes {
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/registro'
     | '/perfil'
     | '/comunidade/$id'
+    | '/noticias/$slug'
     | '/comunidade/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
     | '/registro'
     | '/perfil'
     | '/comunidade/$id'
+    | '/noticias/$slug'
     | '/comunidade'
   id:
     | '__root__'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
     | '/registro'
     | '/_authenticated/perfil'
     | '/comunidade/$id'
+    | '/noticias/$slug'
     | '/comunidade/'
   fileRoutesById: FileRoutesById
 }
@@ -138,6 +150,7 @@ export interface RootRouteChildren {
   EntrarRoute: typeof EntrarRoute
   RegistroRoute: typeof RegistroRoute
   ComunidadeIdRoute: typeof ComunidadeIdRoute
+  NoticiasSlugRoute: typeof NoticiasSlugRoute
   ComunidadeIndexRoute: typeof ComunidadeIndexRoute
 }
 
@@ -206,6 +219,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComunidadeIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/noticias/$slug': {
+      id: '/noticias/$slug'
+      path: '/noticias/$slug'
+      fullPath: '/noticias/$slug'
+      preLoaderRoute: typeof NoticiasSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -228,6 +248,7 @@ const rootRouteChildren: RootRouteChildren = {
   EntrarRoute: EntrarRoute,
   RegistroRoute: RegistroRoute,
   ComunidadeIdRoute: ComunidadeIdRoute,
+  NoticiasSlugRoute: NoticiasSlugRoute,
   ComunidadeIndexRoute: ComunidadeIndexRoute,
 }
 export const routeTree = rootRouteImport
