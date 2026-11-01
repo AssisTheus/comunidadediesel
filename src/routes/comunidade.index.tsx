@@ -22,12 +22,13 @@ export const Route = createFileRoute("/comunidade/")({
 });
 
 function Comunidade() {
-  const { user } = useAuth();
+  const { user, ready } = useAuth();
   const qc = useQueryClient();
   const [titulo, setTitulo] = useState("");
   const [texto, setTexto] = useState("");
   const { data: duvidas, isLoading } = useQuery({
-    queryKey: ["duvidas"],
+    queryKey: ["duvidas", user?.id],
+    enabled: !!user,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("duvidas")
@@ -60,26 +61,29 @@ function Comunidade() {
           <Textarea placeholder="Descreva o problema: veículo, sintomas, o que já foi feito..." rows={4} value={texto} onChange={(e) => setTexto(e.target.value)} />
           <Button type="submit">Publicar dúvida</Button>
         </form>
-      ) : (
+      ) : ready ? (
         <div className="mt-8 rounded-lg border bg-card p-6 text-muted-foreground">
-          <Link to="/entrar" className="font-semibold text-primary">Entre na sua conta</Link> para enviar uma dúvida.
+          <Link to="/entrar" className="font-semibold text-primary">Entre na sua conta</Link> ou{" "}
+          <Link to="/registro" className="font-semibold text-primary">crie uma conta</Link> para ver e enviar dúvidas da comunidade.
+        </div>
+      ) : null}
+
+      {user && (
+        <div className="mt-10 divide-y rounded-lg border">
+          {isLoading && <p className="p-6 text-muted-foreground">Carregando...</p>}
+          {duvidas?.length === 0 && <p className="p-6 text-muted-foreground">Nenhuma dúvida ainda. Seja o primeiro!</p>}
+          {duvidas?.map((d) => (
+            <Link key={d.id} to="/comunidade/$id" params={{ id: d.id }} className="flex items-center gap-4 p-5 hover:bg-muted">
+              <UserAvatar nome={d.autor?.nome} foto={d.autor?.foto_url} />
+              <div className="flex-1">
+                <h2 className="font-sans text-lg font-semibold">{d.titulo}</h2>
+                <p className="text-xs text-muted-foreground">{d.autor?.nome} · {formatData(d.criado_em)}</p>
+              </div>
+              <span className="text-sm text-primary">{d.respostas?.[0]?.count ?? 0} respostas</span>
+            </Link>
+          ))}
         </div>
       )}
-
-      <div className="mt-10 divide-y rounded-lg border">
-        {isLoading && <p className="p-6 text-muted-foreground">Carregando...</p>}
-        {duvidas?.length === 0 && <p className="p-6 text-muted-foreground">Nenhuma dúvida ainda. Seja o primeiro!</p>}
-        {duvidas?.map((d) => (
-          <Link key={d.id} to="/comunidade/$id" params={{ id: d.id }} className="flex items-center gap-4 p-5 hover:bg-muted">
-            <UserAvatar nome={d.autor?.nome} foto={d.autor?.foto_url} />
-            <div className="flex-1">
-              <h2 className="font-sans text-lg font-semibold">{d.titulo}</h2>
-              <p className="text-xs text-muted-foreground">{d.autor?.nome} · {formatData(d.criado_em)}</p>
-            </div>
-            <span className="text-sm text-primary">{d.respostas?.[0]?.count ?? 0} respostas</span>
-          </Link>
-        ))}
-      </div>
     </section>
   );
 }
