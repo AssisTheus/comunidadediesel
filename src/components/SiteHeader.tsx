@@ -57,7 +57,7 @@ export function SiteFooter() {
     <footer className="mt-20 border-t">
       <div className="mx-auto flex max-w-6xl flex-wrap justify-between gap-4 px-4 py-8 text-sm text-muted-foreground">
         <p>© {new Date().getFullYear()} Comunidade Diesel — bombas e bicos injetores.</p>
-        <p>contato@comunidadediesel.com.br · (00) 00000-0000</p>
+        <p>contato@comunidadediesel.com.br</p>
       </div>
     </footer>
   );
