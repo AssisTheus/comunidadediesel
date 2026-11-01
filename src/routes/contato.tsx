@@ -4,9 +4,9 @@ export const Route = createFileRoute("/contato")({
   head: () => ({
     meta: [
       { title: "Contato — Comunidade Diesel" },
-      { name: "description", content: "Fale com a Comunidade Diesel por email ou telefone." },
+      { name: "description", content: "Fale com a Comunidade Diesel por email." },
       { property: "og:title", content: "Contato — Comunidade Diesel" },
-      { property: "og:description", content: "Email e telefone da Comunidade Diesel." },
+      { property: "og:description", content: "Email da Comunidade Diesel." },
     ],
   }),
   component: Contato,
@@ -22,10 +22,6 @@ function Contato() {
           <span className="text-xs font-semibold uppercase tracking-widest text-primary">Email</span>
           <p className="mt-2 text-lg">contato@comunidadediesel.com.br</p>
         </a>
-        <div className="rounded-lg border bg-card p-6">
-          <span className="text-xs font-semibold uppercase tracking-widest text-primary">Telefone / WhatsApp</span>
-          <p className="mt-2 text-lg">(00) 00000-0000</p>
-        </div>
       </div>
     </section>
   );
