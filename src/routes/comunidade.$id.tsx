@@ -22,11 +22,12 @@ export const Route = createFileRoute("/comunidade/$id")({
 
 function Duvida() {
   const { id } = Route.useParams();
-  const { user } = useAuth();
+  const { user, ready } = useAuth();
   const qc = useQueryClient();
   const [texto, setTexto] = useState("");
   const { data, isLoading } = useQuery({
-    queryKey: ["duvida", id],
+    queryKey: ["duvida", id, user?.id],
+    enabled: !!user,
     queryFn: async () => {
       const { data, error } = await supabase
         .from("duvidas")
@@ -48,7 +49,17 @@ function Duvida() {
     qc.invalidateQueries({ queryKey: ["duvida", id] });
   }
 
-  if (isLoading) return <p className="mx-auto max-w-4xl px-4 py-16 text-muted-foreground">Carregando...</p>;
+  if (!ready || (user && isLoading)) return <p className="mx-auto max-w-4xl px-4 py-16 text-muted-foreground">Carregando...</p>;
+  if (!user)
+    return (
+      <div className="mx-auto max-w-4xl px-4 py-16">
+        <h1 className="text-5xl">Conteúdo para membros</h1>
+        <p className="mt-4 text-muted-foreground">
+          <Link to="/entrar" className="font-semibold text-primary">Entre na sua conta</Link> ou{" "}
+          <Link to="/registro" className="font-semibold text-primary">crie uma conta</Link> para ver esta dúvida e as respostas.
+        </p>
+      </div>
+    );
   if (!data)
     return (
       <div className="mx-auto max-w-4xl px-4 py-16">
